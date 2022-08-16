@@ -2,6 +2,66 @@
 //------------------------------------------------
 //------------------------------------------------
 
+.modal-window {
+    // derived from https://codepen.io/timothylong/pen/AJxrPR
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.35);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s;
+
+    &:target {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    &>.modal-content {
+        .content-modal {
+            .modal-inner {
+                max-height: calc(60vh);
+                overflow-y: auto;
+            }
+            top: 20vh;
+            transform: translate(0%, 20vh);
+            -webkit-box-shadow: 0 7px 15px 5px #ccc;
+            -moz-box-shadow: 0 7px 15px 5px #ccc;
+            box-shadow: 0 7px 15px 5px #ccc;
+        }
+    }
+
+    header {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 150%;
+        margin: 0 0 15px;
+    }
+}
+
+.modal-close {
+    color: #aaa;
+    line-height: 50px;
+    font-size: 80%;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 70px;
+    text-decoration: none;
+
+    &:hover {
+        color: black;
+    }
+}
+
 .alt-details.help-info {
     .alt-details-toggle {
         background-color: $brand-primary;
@@ -54,14 +114,14 @@
         margin: 0;
     }
 
-    .alt-details-control+.alt-details-toggle+.alt-details-detail {
+    .alt-details-control+label+.alt-details-detail {
         // by default, hide the details
         position: absolute;
         top: -999em;
         left: -999em;
     }
 
-    .alt-details-control:checked+.alt-details-toggle+.alt-details-detail {
+    .alt-details-control:checked+label+.alt-details-detail {
         // show the details when the control is checked
         position: static;
     }
@@ -71,7 +131,8 @@
         content: "\f13a"; // <i class="fa-solid fa-circle-chevron-down"></i>
     }
 
-    .alt-details-detail {
+    // theme for details of expanded "alt-details-toggle" button
+    .alt-details-control+.alt-details-toggle+.alt-details-detail {
         // The detail box appears to be underneath the toggle button
         // so we add a padding to the top and push it up.
         border-bottom: $base-border-gray;
